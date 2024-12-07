@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #countdown {
+      text-align: center;
+      font-size: 24px;
+    }
+  </style>
+</body>
+<body>
+  <div id="countdown">
+    <span id="years"></span> years, <span id="months"></span> months, <span id="days"></span> days
+  </div>
+
+  <script>
+    function countdownTimer() {
+      const targetDate = new Date("August 10, 2027 00:00:00").getTime();
+      const now = new Date().getTime();
+      const timeDifference = targetDate - now;
+
+      const daysPerYear = 365;
+      const daysPerMonth = 30.417; // Average days per month
+
+      const years = Math.floor(timeDifference / (daysPerYear * 24 * 60 * 60 * 1000));
+      const months = Math.floor((timeDifference % (daysPerYear * 24 * 60 * 60 * 1000)) / (daysPerMonth * 24 * 60 * 60 * 1000));
+      const days = Math.floor((timeDifference % (daysPerMonth * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+
+      document.getElementById("years").textContent = years;
+      document.getElementById("months").textContent = months;
+      document.getElementById("days").textContent = days;
+    }
+
+    // Update the countdown every second
+    setInterval(countdownTimer, 1000);
+  </script>
+</body>
+</html>
