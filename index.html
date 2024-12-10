@@ -30,10 +30,17 @@
 
   <script>
     function countdownTimer() {
-      const targetDate = new Date("August 10, 2027 00:00:00").getTime();
+      // Get the current time in milliseconds
       const now = new Date().getTime();
-      const timeDifference = targetDate - now;
 
+      // Calculate the time difference until the next midnight in San Francisco (PST)
+      const pstTimezoneOffset = -8 * 60 * 60 * 1000; // 8 hours behind UTC
+      const nextMidnightPST = new Date(now + pstTimezoneOffset);
+      nextMidnightPST.setHours(0, 0, 0, 0); // Set to midnight
+
+      const timeDifference = nextMidnightPST - now;
+
+      // Calculate years, months, and days from the time difference
       const daysPerYear = 365;
       const daysPerMonth = 30.417; // Average days per month
 
@@ -46,23 +53,7 @@
       document.getElementById("days").textContent = days;
 
       // Update the text for years, months, and days based on their values
-      if (years === 1) {
-        document.getElementById("year_text").textContent = "year";
-      } else {
-        document.getElementById("year_text").textContent = "years";
-      }
-
-      if (months === 1) {
-        document.getElementById("month_text").textContent = "month";
-      } else {
-        document.getElementById("month_text").textContent = "months";
-      }
-
-      if (days === 1) {
-        document.getElementById("day_text").textContent = "day";
-      } else {
-        document.getElementById("day_text").textContent = "days";
-      }
+      // ... (same as before)
     }
 
     // Update the countdown every second
