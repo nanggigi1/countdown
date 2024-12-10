@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,41 +26,48 @@
 </head>
 <body>
   <div id="countdown">
-    <span id="days"></span> <span id="day_text"></span>, <span id="hours"></span> <span id="hour_text"></span>, <span id="minutes"></span> <span id="minute_text"></span>
+    <span id="years"></span> <span id="year_text"></span>, <span id="months"></span> <span id="month_text"></span>, <span id="days"></span> <span id="day_text"></span>
   </div>
 
   <script>
     function countdownTimer() {
-      const now = new Date();
-      const pstTimezoneOffset = -8 * 60 * 60 * 1000; // 8 hours behind UTC
-      const nextMidnightPST = new Date(now.getTime() + pstTimezoneOffset);
-      nextMidnightPST.setHours(0, 0, 0, 0);
+      const targetDate = new Date("August 10, 2027 00:00:00").getTime();
+      const now = new Date().getTime();
+      const timeDifference = targetDate - now;
 
-      const timeDifferenceMs = nextMidnightPST - now;
-      const timeDifferenceSec = Math.floor(timeDifferenceMs / 1000);
+      const daysPerYear = 365;
+      const daysPerMonth = 30.417; // Average days per month
 
-      const secondsInDay = 24 * 60 * 60;
-      const secondsInHour = 60 * 60;
-      const secondsInMinute = 60;
+      const years = Math.floor(timeDifference / (daysPerYear * 24 * 60 * 60 * 1000));
+      const months = Math.floor((timeDifference % (daysPerYear * 24 * 60 * 60 * 1000)) / (daysPerMonth * 24 * 60 * 60 * 1000));
+      const days = Math.floor((timeDifference % (daysPerMonth * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
 
-      const days = Math.floor(timeDifferenceSec / secondsInDay);
-      const hours = Math.floor((timeDifferenceSec % secondsInDay) / secondsInHour);
-      const minutes = Math.floor((timeDifferenceSec % secondsInHour) / secondsInMinute);
-
+      document.getElementById("years").textContent = years;
+      document.getElementById("months").textContent = months;
       document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
 
-      // Update the text for days, hours, and minutes based on their values
-      document.getElementById("day_text").textContent = days === 1 ? "day" : "days";
-      document.getElementById("hour_text").textContent = hours === 1 ? "hour" : "hours";
-      document.getElementById("minute_text").textContent = minutes === 1 ? "minute" : "minutes";
+      // Update the text for years, months, and days based on their values
+      if (years === 1) {
+        document.getElementById("year_text").textContent = "year";
+      } else {
+        document.getElementById("year_text").textContent = "years";
+      }
+
+      if (months === 1) {
+        document.getElementById("month_text").textContent = "month";
+      } else {
+        document.getElementById("month_text").textContent = "months";
+      }
+
+      if (days === 1) {
+        document.getElementById("day_text").textContent = "day";
+      } else {
+        document.getElementById("day_text").textContent = "days";
+      }
     }
 
     // Update the countdown every second
     setInterval(countdownTimer, 1000);
-
-    countdownTimer(); // Initial call to set the initial countdown
   </script>
 </body>
 </html>
