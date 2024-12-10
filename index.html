@@ -25,7 +25,7 @@
 </head>
 <body>
   <div id="countdown">
-    <span id="years"></span> years, <span id="months"></span> months, <span id="days"></span> days
+    <span id="years"></span> <span id="year_text"></span>, <span id="months"></span> <span id="month_text"></span>, <span id="days"></span> <span id="day_text"></span>
   </div>
 
   <script>
@@ -44,6 +44,25 @@
       document.getElementById("years").textContent = years;
       document.getElementById("months").textContent = months;
       document.getElementById("days").textContent = days;
+
+      // Update the text for years, months, and days based on their values
+      if (years === 1) {
+        document.getElementById("year_text").textContent = "year";
+      } else {
+        document.getElementById("year_text").textContent = "years";
+      }
+
+      if (months === 1) {
+        document.getElementById("month_text").textContent = "month";
+      } else {
+        document.getElementById("month_text").textContent = "months";
+      }
+
+      if (days === 1) {
+        document.getElementById("day_text").textContent = "day";
+      } else {
+        document.getElementById("day_text").textContent = "days";
+      }
     }
 
     // Update the countdown every second
